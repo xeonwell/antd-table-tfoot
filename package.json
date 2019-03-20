@@ -1,0 +1,19 @@
+{
+  "name": "antd-table-tfoot",
+  "version": "1.0.0",
+  "description": "add a tfoot summary for antd table component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xeonwell/antd-table-tfoot.git"
+  },
+  "author": "xeonwell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xeonwell/antd-table-tfoot/issues"
+  },
+  "homepage": "https://github.com/xeonwell/antd-table-tfoot#readme"
+}
