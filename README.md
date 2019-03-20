@@ -118,3 +118,50 @@ export default App;
 ```
 - visit http://localhost:3000
 
+### Tips
+currently we use dom operation(innerHTML) to handle this, so the render function must return a DOM string, such as
+```js
+{
+  dataIndex: 'aaa', 
+  render:    (val) => `<b>￥${val}</b>`
+}
+```
+
+if you want the function returns a jsx format, using the ReactDom instead. 
+
+```js
+import ReactDom from 'react-dom';
+// ...
+    // unmount component when remove
+    ReactDom.unmountComponentAtNode(tfoot);
+    tfoot.parentNode.removeChild(tfoot);
+// ...
+
+    // create a tr component and render to the node tFoot 
+    const tr = <tr>
+      {
+        this.props.columns.map((item, idx) => {
+          let result;
+          if (idx === 0) {
+            result = this.props.totalSummaryText;
+          } else {
+            let summary = this.props.summaryColumns[idx - 1];
+            if (summary) {
+              result = summary.render ? summary.render(this.props[summary.dataIndex])
+                : this.props[summary.dataIndex];
+            } else {
+              result = ' ';
+            }
+          }
+          return <td key={idx}>
+            {result}
+          </td>;
+        })
+      }
+    </tr>;
+
+    table.appendChild(tFoot);
+    ReactDom.render(tr, tFoot);
+
+// ...
+```
