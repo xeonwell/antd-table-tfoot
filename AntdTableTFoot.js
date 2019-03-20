@@ -14,7 +14,7 @@ import './antd-table-tfoot.css';
 
 // export type TableColumnProps = {
 //   dataIndex: string,
-//   render?: (val: any) => string,
+//   render?: (val: any) => any,
 // }
 
 class AntdTableTFoot extends PureComponent {
@@ -28,10 +28,22 @@ class AntdTableTFoot extends PureComponent {
   //   totalSummaryText?: string,
   // };
   //
-  //
-  // static defaultProps = {
-  //   totalSummaryText: 'Total:',
-  // };
+
+  static propTypes = {
+    tableId:           PropTypes.string.isRequired,
+    dataSource:        PropTypes.array.isRequired,
+    summaryDataSource: PropTypes.object.isRequired,
+    columns:           PropTypes.array.isRequired,
+    summaryColumns:    PropTypes.arrayOf(PropTypes.shape({
+      dataIndex: PropTypes.string.isRequired,
+      render:    PropTypes.func,
+    })),
+    totalSummaryText:  PropTypes.string,
+  };
+
+  static defaultProps = {
+    totalSummaryText: 'Total:',
+  };
 
   componentDidMount() {
     this.renderSummary();
@@ -58,9 +70,7 @@ class AntdTableTFoot extends PureComponent {
     let table = document.querySelector('#' + this.props.tableId + ' .ant-table-body>table');
     if (!table) return;
 
-    let tFoot;
-
-    tFoot = table.querySelector('tfoot');
+    let tFoot = table.querySelector('tfoot');
     if (tFoot) {
       tFoot.parentNode.removeChild(tFoot);
     }
@@ -96,20 +106,5 @@ class AntdTableTFoot extends PureComponent {
 
 }
 
-AntdTableTFoot.propTypes = {
-  tableId:           PropTypes.string.isRequired,
-  dataSource:        PropTypes.array.isRequired,
-  summaryDataSource: PropTypes.object.isRequired,
-  columns:           PropTypes.array.isRequired,
-  summaryColumns:    PropTypes.arrayOf(PropTypes.shape({
-    dataIndex: PropTypes.string.isRequired,
-    render:    PropTypes.func,
-  })),
-  totalSummaryText:  PropTypes.string,
-};
-
-AntdTableTFoot.defaultProps = {
-  totalSummaryText: 'Total:',
-};
 
 export default AntdTableTFoot;
